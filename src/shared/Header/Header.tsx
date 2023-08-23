@@ -4,8 +4,9 @@ import { GlobalSvgSelector } from "../../assets/images/icons/global/GlobalSvgSel
 import Select from "react-select";
 import { useTheme } from "../../hooks/useTheme";
 import { Theme } from "../../context/ThemeContext";
+import { thisDayAPI} from "../../api/Api";
 
-
+console.log(thisDayAPI.getCurrentTemp());
 interface Props {}
 
 export const Header = (props: Props) => {
