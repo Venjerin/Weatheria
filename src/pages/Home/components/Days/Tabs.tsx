@@ -1,20 +1,19 @@
 import React from "react";
 import s from './Days.module.scss';
 import { GlobalSvgSelector } from "../../../../assets/images/icons/global/GlobalSvgSelector";
+import { connect } from "react-redux";
+import { getTabsData } from "../../../../redux/tabs-reduer";
 interface Props {
 
 }
 
-export const Tabs = (props: Props) => {
+const Tabs = (props: any) => {
     const tabs = [
         {
-            value: 'На неделю',
+            value: 'Почасовой', key: 'hours',
         },
         {
-            value: 'На 10 дней',
-        },
-        {
-            value: 'На месяц',
+            value: 'На неделю', key: 'week',
         },
     ]
     return (
@@ -22,7 +21,7 @@ export const Tabs = (props: Props) => {
         <div className={s.tabs_wrapper}>
           {tabs.map((tab) => {
             return (
-              <div className={s.tab} key={tab.value}>
+              <div className={s.tab} key={tab.key} onClick={() => props.getTabsData(tab.key)}>
                 {tab.value}
               </div>
             );
@@ -32,3 +31,5 @@ export const Tabs = (props: Props) => {
       </div>
     );
 }
+
+export default connect(null, {getTabsData})(Tabs)

@@ -5,7 +5,7 @@ import './styles/index.scss'
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from './provider/ThemeProvider';
 import { Provider } from 'react-redux';
-import store from './store/store';
+import store from './redux/redux-store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,7 +15,7 @@ root.render(
     <Provider store = {store}>
       <BrowserRouter>
         <ThemeProvider>
-          <App />
+          <App/>
         </ThemeProvider>
       </BrowserRouter>
     </Provider>

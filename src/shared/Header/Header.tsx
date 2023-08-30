@@ -4,17 +4,36 @@ import { GlobalSvgSelector } from "../../assets/images/icons/global/GlobalSvgSel
 import Select from "react-select";
 import { useTheme } from "../../hooks/useTheme";
 import { Theme } from "../../context/ThemeContext";
-import { thisDayAPI} from "../../api/Api";
+import { connect } from "react-redux";
+import { getCurrentData } from "../../redux/thisDay-reducer";
 
-console.log(thisDayAPI.getCurrentTemp());
 interface Props {}
 
-export const Header = (props: Props) => {
+interface IWeatherState{
+  option: {}
+} 
+
+const Header = (props: any) => {
+
+
+
+    const getWeather = (e:any) => {
+      props.getCurrentData(e.value, e.label);
+    }
+
     const themeObj = useTheme();
     const options = [
-      { value: "city-1", label: "Санкт-Петербург" },
-      { value: "city-2", label: "Москва" },
-      { value: "city-3", label: "Новгород" },
+      { value: "Saint Petersburg", label: "Санкт-Петербург", },
+      { value: "Moscow", label: "Москва",},
+      { value: "Novgorod", label: "Новгород" },
+      { value: "Paris", label: "Париж",},
+      { value: "London", label: "Лондон",},
+      { value: "New York", label: "Нью-Йорк",},
+      { value: "Murmansk", label: "Мурманск",},
+      { value: "Miami", label: "Маями",},
+      { value: "Dubai", label: "Дубаи",},
+      { value: "Tokio", label: "Токио",},
+      { value: "Pekin", label: "Пекин",},
     ];
 
     // const [theme, setTheme] = useState('light');
@@ -22,6 +41,12 @@ export const Header = (props: Props) => {
     // const changeTheme = () => {
     //     setTheme(theme == 'light'? 'dark' : 'light');
     // }
+
+      useEffect (() => {
+        props.getCurrentData(options[0].value)
+      }, [])
+
+
     const changeTheme = () => {
       themeObj.changeTheme(themeObj.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
     };
@@ -78,8 +103,19 @@ export const Header = (props: Props) => {
           <div className={s.change_theme} onClick={changeTheme}>
             <GlobalSvgSelector id="change-theme"></GlobalSvgSelector>
           </div>
-          <Select defaultValue={options[0]} styles={colourStyles} options={options}></Select>
+          <Select defaultValue={options[0]} styles={colourStyles} options={options} onChange={e => getWeather(e)}></Select>
+
         </div>
       </header>
     );
 }
+
+const mapStateToProps = (state: any) => {
+  return null;
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return null;
+};
+
+export default connect(mapStateToProps, {getCurrentData})(Header);

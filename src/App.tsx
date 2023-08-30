@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Home } from './pages/Home/components/Home';
 import { MontchStatistics } from './pages/MontchStatistics/MontchStatistics';
-import { Header } from './shared/Header/Header';
+import Header from './shared/Header/Header';
 import { Popup } from './shared/Popup/Popup';
 
 

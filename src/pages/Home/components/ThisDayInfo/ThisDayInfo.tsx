@@ -2,6 +2,8 @@ import s from './ThisDayInfo.module.scss';
 import React from "react";
 import cloud from '../../../../assets/images/cloud.png'
 import { ThisDayItem } from './ThisDayItem';
+import { connect } from 'react-redux';
+import { stat } from 'fs';
 interface Props {}
 
 export interface Item {
@@ -10,17 +12,17 @@ export interface Item {
   value: string;
 }
 
-export const ThisDayInfo = (props: Props) => {
+const ThisDayInfo = (props: any) => {
   const items = [
     {
       icon_id: 'temp',
       name: 'Температура',
-      value: '20° - ощущается как 17°',
+      value: `${props.temp}° - ощущается как ${props.temp_feels_like}°`,
     },
     {
       icon_id: 'pressure',
       name: 'Давление',
-      value: '765 мм ртутного столба - нормальное',
+      value: `${props.pressure} мм ртутного столба`,
     },
     {
       icon_id: 'precipitation',
@@ -30,7 +32,7 @@ export const ThisDayInfo = (props: Props) => {
     {
       icon_id: 'wind',
       name: 'Ветер',
-      value: '3 м/с юго-запад - легкий ветер',
+      value: `${props.wind.speed} м/с ${props.wind.direction}`,
     },
   ];
     return (
@@ -42,9 +44,17 @@ export const ThisDayInfo = (props: Props) => {
           }
         </div>
         <img className={s.cloud_image} src={cloud} alt="облако"></img>
-        <div></div>
-        <div></div>
-        <div></div>
       </div>
     );
 }
+
+const mapStateToProps = (state: any) => {
+  return {
+    temp: state.mainPage.thisDayTemp,
+    temp_feels_like: state.mainPage.thisDayTempFeelsLike,
+    pressure: state.mainPage.thisDayPressure,
+    wind: state.mainPage.thisDayWind
+  }
+}
+
+export default connect(mapStateToProps)(ThisDayInfo)
